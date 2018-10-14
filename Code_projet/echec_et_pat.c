@@ -13,8 +13,12 @@ avec affichage sur le terminal*/
 
 
 /* Mettre les declaration des structures ici*/
+<<<<<<< HEAD
 
 typedef struct Case
+=======
+typedef struct Piece
+>>>>>>> d9ed60529fdfc3b9018d92e1e9a31e16f0dc6b31
 
 /*Rappeler toutes les fonctions que l'on utilise ici*/
 
