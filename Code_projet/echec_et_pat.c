@@ -13,7 +13,7 @@ avec affichage sur le terminal*/
 
 
 /* Mettre les declaration des structures ici*/
-
+typedef struct Piece
 
 /*Rappeler toutes les fonctions que l'on utilise ici*/
 
