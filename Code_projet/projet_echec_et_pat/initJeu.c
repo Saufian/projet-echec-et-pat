@@ -13,9 +13,9 @@ void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]) {  // initialisatio
 
     /* process */
     for(int x = 0; x<TAILLETERRAIN; x++) {
-        for(int y = 0; y<TAILLETERRAIN; y++) {
-            couleur = (x+y)%2;
-            terrain[x][y] = initCase(couleur, x, y);
+        for(int y = 0; y<TAILLETERRAIN; y++) {  // on parcours chaque case
+            couleur = (x+y)%2;  // couleur associe a la case
+            terrain[x][y] = initCase(couleur, x, y);  // on y met une case nouvellement cree
         }
     }
 }
