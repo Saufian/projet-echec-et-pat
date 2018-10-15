@@ -1,12 +1,12 @@
 /* Debut de ce "fantastique" projet pour faire un jeu d'echec
 avec affichage sur le terminal*/
 
+/* Mettre tout les #define ici*/
+#define TAILLETERRAIN 8  // un carré de 8 sur 8
+
 
 /* Mettre tout les #include ici*/
 #include <stdio.h>
-
-/* Mettre tout les #define ici*/
-#define TAILLETERRAIN 8  // un carré de 8 sur 8
 
 #include "initJeu.h"
 #include "graphiqueJeu.h"
