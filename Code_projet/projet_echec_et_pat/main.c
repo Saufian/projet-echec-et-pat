@@ -6,7 +6,7 @@ avec affichage sur le terminal*/
 #include <stdio.h>
 
 /* Mettre tout les #define ici*/
-#define TAILLETERRAIN 8  // un carré de 8 sur 8
+#define TAILLETERRAIN 8  // un carrÃ© de 8 sur 8
 
 #include "initJeu.h"
 #include "graphiqueJeu.h"
@@ -16,8 +16,8 @@ avec affichage sur le terminal*/
 (si ce n'est pas possible de faire autrement)*/
 
 
-void calculsVictoire();  // à chaque tour, pour les deux roi (verifie si l'action est réalisable)
-void calculsMouvement();  // à chaque fois que l'on change la disposition des pieces
+void calculsVictoire();  // Ã  chaque tour, pour les deux roi (verifie si l'action est rÃ©alisable)
+void calculsMouvement();  // Ã  chaque fois que l'on change la disposition des pieces
 
 
 /* Fonction main*/
