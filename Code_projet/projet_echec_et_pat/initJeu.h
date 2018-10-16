@@ -1,6 +1,19 @@
 #ifndef INITJEU_H_INCLUDED
 #define INITJEU_H_INCLUDED
 
+/* Mettre toutes les librairies que l'on va utiliser ici*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+/* Mettre tout les #define ici*/
+#define TAILLETERRAIN 8  // un carré de 8 sur 8
+
+
+/* Mettre les variables globales ici
+(si ce n'est pas possible de faire autrement, comme en mettant une constante)*/
+
 
 /* Mettre les declaration des structures ici*/
 
@@ -15,6 +28,7 @@ typedef struct Joueur {
     int couleur;  // couleur des pieces qu'il joue lors de la partie
     /* 0 pour noir
         1 pour blanc*/
+
 } Joueur;
 
 typedef struct Piece {
@@ -42,9 +56,25 @@ typedef struct Case {
 } Case;
 
 
-/*Rappeler toutes les fonctions que l'on utilise ici*/
-void initJeu();  // met en place les éléments du jeu (terrain, pieces, liste de pieces, etc)
-void initTerrain();  // rempli le terrain de cases blanches et noires
-Piece initPiece();  // créé les pièces (type, couleur, position de base), puis utilise calculsMouvement
+/*Rappeler toutes les fonctions que l'on utilise ici depuis tous les documents*/
+
+// partie pour l'initialisation du terrain
+void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);
+// met en place les éléments du jeu (terrain, pieces, liste de pieces, etc)
+void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
+// rempli le terrain de cases blanches et noires
+Joueur* initJoueur(char* nom, int couleur);
+// rempli les infos relatives aux joueurs
+Case initCase(int couleur, int posX, int posY);  // initialisation des cases (on met le contenu NULL)
+Piece* initPiece(char type, int posX, int posY, Joueur possesseur);
+// créé les pièces (type, couleur, position de base), puis utilise calculsMouvement
+
+// partie affichage
+void affichageMenu();  // affichage du menu de départ
+void affichageJeu(); // affichage du terrain, des pions
+
+// partie calcul
+void calculsVictoire();  // à chaque tour, pour les deux roi (verifie si l'action est réalisable)
+void calculsMouvement();  // à chaque fois que l'on change la disposition des pieces
 
 #endif // INITJEU_H_INCLUDED
