@@ -23,8 +23,10 @@ int main() {
     joueur2 = initJoueur("joueur2", 0);  // creation du joueur2
     initJeu(terrain, joueur1, joueur2);  // initialisition du terrain
 
+    /* test du menu*/
+    affichageMenu();
+    
     /* test des listes*/
-
     /* creation de la liste*/
     Element* liste;
     liste = initElement(1,1);
