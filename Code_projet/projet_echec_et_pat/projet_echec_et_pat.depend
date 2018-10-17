@@ -12,3 +12,14 @@
 1539634807 source:/home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/initJeu.c
 	"initJeu.h"
 
+1539786365 source:d:\documents\github\projet-echec-et-pat\code_projet\projet_echec_et_pat\initjeu.c
+	"initJeu.h"
+
+1539788924 d:\documents\github\projet-echec-et-pat\code_projet\projet_echec_et_pat\initjeu.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1539789224 source:d:\documents\github\projet-echec-et-pat\code_projet\projet_echec_et_pat\main.c
+	"initJeu.h"
+
