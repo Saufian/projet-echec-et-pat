@@ -31,6 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="gestionListe.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="initJeu.c">
 			<Option compilerVar="CC" />
 		</Unit>

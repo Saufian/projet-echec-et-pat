@@ -1,25 +1,17 @@
 # depslib dependency file v1.0
-1539634427 source:/home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/main.c
+1539787267 source:/home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/main.c
 	"initJeu.h"
 
-1539634491 /home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/initJeu.h
+1539787399 /home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/initJeu.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
 1539628076 /home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/graphiqueJeu.h
 
-1539634807 source:/home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/initJeu.c
+1539786924 source:/home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/initJeu.c
 	"initJeu.h"
 
-1539786365 source:d:\documents\github\projet-echec-et-pat\code_projet\projet_echec_et_pat\initjeu.c
-	"initJeu.h"
-
-1539788924 d:\documents\github\projet-echec-et-pat\code_projet\projet_echec_et_pat\initjeu.h
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1539789224 source:d:\documents\github\projet-echec-et-pat\code_projet\projet_echec_et_pat\main.c
+1539807614 source:/home/thomas/git/projet-echec-et-pat/Code_projet/projet_echec_et_pat/gestionListe.c
 	"initJeu.h"
 

@@ -17,10 +17,11 @@
 
 /* Mettre les declaration des structures ici*/
 
-typedef struct Element {
-    int n;
-    struct Element * ptr_precedent;  // contient l'adresse de l'element precedent
-    struct Element * ptr_suivant;  // contient l'adresse de l'element suivant
+typedef struct Element {  // structure pour réaliser une liste contenant les cases qui pourront etre atteintes
+    int posX;  // coordonnées en x  (de 1 a 8 inclus)
+    int posY;  // coordonnées en y
+    struct Element* precedent;  // contient l'adresse de l'element precedent
+    struct Element* suivant;  // contient l'adresse de l'element suivant
 } Element;
 
 typedef struct Joueur {
@@ -76,5 +77,11 @@ void affichageJeu(); // affichage du terrain, des pions
 // partie calcul
 void calculsVictoire();  // à chaque tour, pour les deux roi (verifie si l'action est réalisable)
 void calculsMouvement();  // à chaque fois que l'on change la disposition des pieces
+
+//partie gestion de liste
+Element* initElement(int posX, int posY);  // Initialisation des elements
+Element* addListe(Element* elementListe, Element* elementSupplementaire);  // ajoute un element a une liste
+void eraseListe(Element* liste);  // supprimer une liste, et liberer l'espace memoire alloué
+void afficheListe(Element* liste);  // pour visualiser les listes (debug)
 
 #endif // INITJEU_H_INCLUDED
