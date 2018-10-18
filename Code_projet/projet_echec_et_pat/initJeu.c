@@ -3,11 +3,39 @@ contient les fonctions pour initialyser le terrain, les pieces et les joueurs*/
 
 #include "initJeu.h"
 
-void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2) {
-    /* Le support d'abord*/
+void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* blanc, Joueur* noir) {
+    /*Initialisation des tables qui vont nous permettre de naviguer entres les pieces*/
+    Piece* listePieceBlancVivante[NMBPIECEPARJOUEUR];
+    Piece* listePieceNoirVivante[NMBPIECEPARJOUEUR];
+    initListePiece(NMBPIECEPARJOUEUR, listePieceBlancVivante);
+    initListePiece(NMBPIECEPARJOUEUR, listePieceNoirVivante);
+
+    /* Le support ensuite*/
     initTerrain(terrain);
 
+    /*On met chaque piece sur le tableau*/
+    char nomPiece[NMBPIECEPARJOUEUR] = {'T','C','F','D','R','F','C','T'};  // disposition des pieces blanches
+    for (int i = 0; i < NMBPIECEPARJOUEUR; ++i) {
+        terrain[i][0].contenu = initPiece(nomPiece[i], i, 0, blanc);
+        addListePiece(NMBPIECEPARJOUEUR, listePieceBlancVivante, terrain[i][0].contenu);
+    }
+
+
+    nomPiece[3] = 'R';  // on modifie pour les pieces noires
+    nomPiece[4] = 'D';  // disposition des pieces noires
+    for (int i = 0; i < NMBPIECEPARJOUEUR; ++i) {
+        terrain[i][7].contenu = initPiece(nomPiece[i], i, 7, noir);
+        addListePiece(NMBPIECEPARJOUEUR, listePieceNoirVivante, terrain[i][7].contenu);
+    }
+
     /* on place ensuite les pions*/
+    for(int x = 0; x<TAILLETERRAIN; x++) {
+        terrain[x][1].contenu = initPiece('P', x, 1, blanc);  // on cree les pieces de pions (P)
+        addListePiece(NMBPIECEPARJOUEUR, listePieceBlancVivante, terrain[x][1].contenu);
+        //on ajoute les pieces dans les listes des joueurs
+        terrain[x][6].contenu = initPiece('P', x, 6, noir);  // on leur attribut des joueurs
+        addListePiece(NMBPIECEPARJOUEUR, listePieceNoirVivante, terrain[x][6].contenu);
+    }
 }
 
 void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]) {  // initialisation du terrain
@@ -19,8 +47,7 @@ void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]) {  // initialisatio
     for(int x = 0; x<TAILLETERRAIN; x++) {
         for(int y = 0; y<TAILLETERRAIN; y++) {
             couleur = (x+y)%2;  // couleur associe a la case
-            terrain[x][y] = initCase(couleur, x+1, y+1);  // on y met une case nouvellement cree
-            //on met un +1 pour que les indices des cases correspondent aux coordonnées utilisé dans les jeux d'echecs
+            terrain[x][y] = initCase(couleur, x, y);  // on y met une case nouvellement cree
         }
     }
 }
@@ -31,7 +58,7 @@ Case initCase(int couleur, int posX, int posY) {
     temp.couleur = couleur;
     temp.posX = posX;
     temp.posY = posY;
-    temp.Contenu = NULL;  // les pieces ne sont pas encore cree, on est nul pour l'instant
+    temp.contenu = NULL;  // les pieces ne sont pas encore cree, on est nul pour l'instant
     return temp;
 }
 
@@ -45,47 +72,43 @@ Joueur* initJoueur(char* nom, int couleur) {
 }
 
 
-void affichageMenu()
-{
-    printf("Menu Echec Simulator 2018\n\
-        1 - Jouez\n\
-        2 - Charger\n\
-        3 - Options\n\
-        4 - Credit\n\
-        5 - Quitter\n");
-    int choix = -1;
-    while((choix!=1) && (choix!=2) && (choix!=3) && (choix!=4) && (choix!=5))/*Quitte le menu si un choix valide est fait*/
+Piece* initPiece(char type, int posX, int posY, Joueur* possesseur){
+    Piece* temporaire;
+    temporaire = (Piece*)malloc(sizeof(Piece));  // on lui donne une taille memoire
+    temporaire->type = type;  // on affecte les valeurs dans temporaire
+    temporaire->posX = posX;
+    temporaire->posY = posX;
+    temporaire->possesseur = possesseur;
+    temporaire->mouvementPossible = NULL;  // on va calculer les mouvements dans la suite
+    return temporaire;
+}
+
+
+void initListePiece(int taille, Piece* liste[taille]){
+    for (int i = 0; i < taille; ++i)
     {
-        scanf("%d",&choix);
-        switch(choix)
-        {
-            case 1:
-                /*Lance le jeu*/
-                printf("Je lance le jeu\n");
-                break;
-            case 2:
-                /*Ouvre un menu pour choisir une partie a charger*/
-                printf("Allons charger une partie\n");
-                break;
-            case 3:
-                /*Ouvre le menu options*/
-                printf("Rien de mieux que de pimper sont jeu\n");
-                break;
-            case 4:
-                /*Ouvre les credit*/
-                printf("Vous avez dit qui?\n");
-                break;
-            case 5:
-                /*Quitte le jeu*/
-                printf("Au revoir et a bientot\n");
-                break;
-            default:
-                /*Si l'utilisateur rentre autre chose*/
-                printf("Ce choix n'existe pas\n");
-                break;
-        }
-        printf("Je suis sortie du switch\n");
-        printf("Choix : %d\n",choix);
+        liste[i] = NULL;
     }
-    printf("Je suis sortie de la boucle\n");
+}
+
+
+void addListePiece(int taille, Piece* liste[taille], Piece* elementSupplementaire){
+    int compteur = 0;
+    while (liste[compteur] != NULL && compteur < taille) {  // on va aller chercher la fin de la liste
+        compteur += 1;
+    }
+    liste[compteur] = elementSupplementaire;  // on rajoute l'element à la fin
+}
+
+
+void eraseListePiece(int taille, Piece* liste[taille], int numElement){
+    if (numElement < taille  && numElement >= 0) {  // on verifie qu'il n'y aura pas de depassement
+        free(liste[numElement]);
+        liste[numElement] = NULL;
+        numElement += 1;  // on va aller regarder les elements suivants
+        while(liste[numElement] != NULL && numElement < taille) {  // jusque la fin de la liste
+            liste[numElement-1] = liste[numElement];  // on decalle les elements
+            numElement += 1;
+        }
+    }
 }

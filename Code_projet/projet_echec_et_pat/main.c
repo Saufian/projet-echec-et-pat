@@ -25,14 +25,18 @@ int main() {
 
     /* test du menu*/
     affichageMenu();
-    
-    /* test des listes*/
-    /* creation de la liste*/
-    Element* liste;
-    liste = initElement(1,1);
-    for (int i = 2; i<10; i++) {
-        liste = addListe((liste),initElement(i, i));
+
+    /* test des pions*/
+    for (int i = 0; i<8; i++) {
+        for (int j = 0; j<8; j++) {
+            if (terrain[j][7-i].contenu == NULL) {
+                printf("   ");
+            }
+            else {
+                printf(" %c ", terrain[j][7-i].contenu->type);
+            }
+        }
+        printf("\n");
     }
-    afficheListe(liste);
     return 0;
 }
