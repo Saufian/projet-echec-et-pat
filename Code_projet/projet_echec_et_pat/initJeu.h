@@ -9,6 +9,7 @@
 
 /* Mettre tout les #define ici*/
 #define TAILLETERRAIN 8  // un carré de 8 sur 8
+#define NMBPIECEPARJOUEUR 16  // nombre initial de piece pour chaque joueur
 
 
 /* Mettre les variables globales ici
@@ -42,8 +43,8 @@ typedef struct Piece {
         D -> dame*/
     int posX;  // toujours utile
     int posY;
-    Joueur possesseur;  // determine la couleur de la piece, et qui peut la bouger
-    Element mouvementPossible;  // on stocke les differents endroits où la piece peut aller
+    Joueur* possesseur;  // determine la couleur de la piece, et qui peut la bouger
+    Element* mouvementPossible;  // on stocke les differents endroits où la piece peut aller
 } Piece;
 
 typedef struct Case {
@@ -53,7 +54,7 @@ typedef struct Case {
         2 pour une case en surbrillance */
     int posX;  // c'est toujours interressant d'avoir la position
     int posY;
-    Piece* Contenu;  // pointeur vers la piece qui se trouve dessus, NULL sinon
+    Piece* contenu;  // pointeur vers la piece qui se trouve dessus, NULL sinon
 } Case;
 
 
@@ -67,8 +68,11 @@ void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Joueur* initJoueur(char* nom, int couleur);
 // rempli les infos relatives aux joueurs
 Case initCase(int couleur, int posX, int posY);  // initialisation des cases (on met le contenu NULL)
-Piece* initPiece(char type, int posX, int posY, Joueur possesseur);
+Piece* initPiece(char type, int posX, int posY, Joueur* possesseur);
 // créé les pièces (type, couleur, position de base), puis utilise calculsMouvement
+void initListePiece(int taille, Piece* liste[taille]);  // pour initialiser les listes de pieces
+void addListePiece(int taille, Piece* liste[taille],Piece* elementSupplementaire);  // on ajoute en fin de liste
+void eraseListePiece(int taille, Piece* liste[taille], int numElement);  // suppression de l'element
 
 // partie affichage
 void affichageMenu();  // affichage du menu de départ
@@ -81,7 +85,7 @@ void calculsMouvement();  // à chaque fois que l'on change la disposition des pi
 //partie gestion de liste
 Element* initElement(int posX, int posY);  // Initialisation des elements
 Element* addListe(Element* elementListe, Element* elementSupplementaire);  // ajoute un element a une liste
-void eraseListe(Element* liste);  // supprimer une liste, et liberer l'espace memoire alloué
+Element* eraseListe(Element* liste);  // supprimer une liste, et liberer l'espace memoire alloué
 void afficheListe(Element* liste);  // pour visualiser les listes (debug)
 
 #endif // INITJEU_H_INCLUDED

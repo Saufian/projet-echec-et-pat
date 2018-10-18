@@ -28,7 +28,7 @@ Element* addListe(Element* elementListe, Element* elementSupplementaire) {
 	return elementListe;
 }
 
-void eraseListe(Element* liste) {
+Element* eraseListe(Element* liste) {
 	/* on se place au debut de la liste avant d'effacer chaque element*/
 	Element* curseur = liste;
 	while(curseur->precedent != NULL) {
@@ -43,6 +43,7 @@ void eraseListe(Element* liste) {
 	}
 	// il ne reste plus que le dernier element
 	free(curseur);
+	return NULL;
 }
 
 void afficheListe(Element* liste) {
@@ -55,7 +56,6 @@ void afficheListe(Element* liste) {
 	/* On parcours tous les elements*/
 	while(curseur->suivant != NULL) {
 		printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
-		Element* temp = curseur;  // on garde le pointeur avant de passer à l'element suivant
 		curseur = curseur->suivant;
 	}
 	printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
