@@ -18,9 +18,9 @@
 
 /* Mettre les declaration des structures ici*/
 
-typedef struct Element {  // structure pour rÃ©aliser une liste contenant les cases qui pourront etre atteintes
-    int posX;  // coordonnÃ©es en x  (de 1 a 8 inclus)
-    int posY;  // coordonnÃ©es en y
+typedef struct Element {  // structure pour realiser une liste contenant les cases qui pourront etre atteintes
+    int posX;  // coordonnees en x  (de 1 a 8 inclus)
+    int posY;  // coordonnees en y
     struct Element* precedent;  // contient l'adresse de l'element precedent
     struct Element* suivant;  // contient l'adresse de l'element suivant
 } Element;
@@ -62,25 +62,25 @@ typedef struct Case {
 
 // partie pour l'initialisation du terrain
 void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);
-// met en place les Ã©lÃ©ments du jeu (terrain, pieces, liste de pieces, etc)
+// met en place les elements du jeu (terrain, pieces, liste de pieces, etc)
 void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 // rempli le terrain de cases blanches et noires
 Joueur* initJoueur(char* nom, int couleur);
 // rempli les infos relatives aux joueurs
 Case initCase(int couleur, int posX, int posY);  // initialisation des cases (on met le contenu NULL)
 Piece* initPiece(char type, int posX, int posY, Joueur* possesseur);
-// créé les pièces (type, couleur, position de base), puis utilise calculsMouvement
+// cree les pieces (type, couleur, position de base), puis utilise calculsMouvement
 void initListePiece(int taille, Piece* liste[taille]);  // pour initialiser les listes de pieces
 void addListePiece(int taille, Piece* liste[taille],Piece* elementSupplementaire);  // on ajoute en fin de liste
 void eraseListePiece(int taille, Piece* liste[taille], Piece* cible);  // suppression de l'element
 
 // partie affichage
-void affichageMenu();  // affichage du menu de dÃ©part
+void affichageMenu();  // affichage du menu de depart
 void affichageJeu(); // affichage du terrain, des pions
 
 // partie calcul
-void calculsVictoire();  // Ã  chaque tour, pour les deux roi (verifie si l'action est rÃ©alisable)
-void calculsMouvement();  // Ã  chaque fois que l'on change la disposition des pieces
+void calculsVictoire();  // a chaque tour, pour les deux roi (verifie si l'action est rÃ©alisable)
+void calculsMouvement();  // a chaque fois que l'on change la disposition des pieces
 
 //partie gestion de liste
 Element* initElement(int posX, int posY);  // Initialisation des elements
