@@ -79,7 +79,7 @@ void affichageMenu();  // affichage du menu de depart
 void affichageJeu(); // affichage du terrain, des pions
 
 // partie calcul
-void calculsVictoire();  // a chaque tour, pour les deux roi (verifie si l'action est rÃ©alisable)
+void calculsVictoire();  // a chaque tour, pour les deux roi (verifie si l'action est realisable)
 void calculsMouvement();  // a chaque fois que l'on change la disposition des pieces
 
 //partie gestion de liste
