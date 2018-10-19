@@ -100,15 +100,16 @@ void addListePiece(int taille, Piece* liste[taille], Piece* elementSupplementair
     liste[compteur] = elementSupplementaire;  // on rajoute l'element à la fin
 }
 
-
-void eraseListePiece(int taille, Piece* liste[taille], int numElement){
-    if (numElement < taille  && numElement >= 0) {  // on verifie qu'il n'y aura pas de depassement
-        free(liste[numElement]);
-        liste[numElement] = NULL;
-        numElement += 1;  // on va aller regarder les elements suivants
-        while(liste[numElement] != NULL && numElement < taille) {  // jusque la fin de la liste
-            liste[numElement-1] = liste[numElement];  // on decalle les elements
-            numElement += 1;
-        }
+void eraseListePiece(int taille, Piece* liste[taille], Piece* cible){
+    int compteur = 0;  // on met en place un compteur pour se reperer dans la liste
+    while (compteur < taille  && liste[compteur] != cible) {  // on recherche l'element dans la liste
+        compteur += 1;
+    }
+    free(liste[compteur]);  // on enleve
+    liste[compteur] = NULL;
+    compteur += 1;  // on va aller regarder les elements suivants
+    while(liste[compteur] != NULL && compteur < taille) {  // jusque la fin de la liste
+        liste[compteur-1] = liste[compteur];  // on decalle les elements
+        compteur += 1;
     }
 }
