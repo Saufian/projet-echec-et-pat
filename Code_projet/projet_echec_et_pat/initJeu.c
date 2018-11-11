@@ -10,9 +10,9 @@ void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* blanc, Joueur* 
     /*On met chaque piece sur le tableau*/
     char nomPiece[NMBPIECEPARJOUEUR] = {'T','C','F','D','R','F','C','T'};  // disposition des pieces blanches
     for (int i = 0; i < NMBPIECEPARJOUEUR/2; ++i) {  // la moitie des pieces sont definies ici
-        if (i == 0) {  // on fait sortir la tour blanche en 0,0 pour les tests
-            terrain[5][2].contenu = initPiece(nomPiece[i], 5, 2, blanc);
-            addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[5][2].contenu);
+        if (i == 4) {  // on fait sortir roi blanc en 5,2 pour les tests
+            terrain[5][2].contenu = initPiece(nomPiece[i], 5, 2, blanc);  // TODO enlever cela si les tests
+            addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[5][2].contenu);  // sont finis
         }
         else {
             terrain[i][0].contenu = initPiece(nomPiece[i], i, 0, blanc);
@@ -51,6 +51,7 @@ void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]) {  // initialisatio
 Case initCase(int couleur, int posX, int posY) {
     Case temp;  // on rempli d'abord temp, avant de le renvoyer.
     temp.couleur = couleur;
+    temp.surbrillance = 0;  // pas de surbrillance de base
     temp.posX = posX;
     temp.posY = posY;
     temp.contenu = NULL;  // les pieces ne sont pas encore cree, on est nul pour l'instant
