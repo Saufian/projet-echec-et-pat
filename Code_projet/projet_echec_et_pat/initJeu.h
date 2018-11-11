@@ -112,7 +112,7 @@ void scanDeuxJoueurs(Joueur joueurActuel, int commande[2][2]);
 /* scan les entrees des participants, et modifie un tableau[2][2] contenant la position de la piece a bouger,
  * et la position a laquelle le joueur veut la mettre. La fonction verifie si le mouvement est possible
  * (en regardant les positions possibles de la piece choisi, affiche en surbrillance les choix possible (qui correspondent
- * aux positions possibles de la piece selectionnÃ©, puis renvoi les informations rentre par l'utilisateur si le mouvement
+ * aux positions possibles de la piece selectionne, puis renvoi les informations rentre par l'utilisateur si le mouvement
  * est possible)).
  */
 
