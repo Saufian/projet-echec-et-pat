@@ -18,7 +18,7 @@
 
 /* Mettre les declaration des structures ici*/
 
-typedef struct Element {  // structure pour rÃ©aliser une liste contenant les cases qui pourront etre atteintes
+typedef struct Element {  // structure pour realiser une liste contenant les cases qui pourront etre atteintes
     int posX;  // coordonnees en x  (de 0 a 7 inclus)
     int posY;  // coordonnees en y
     struct Element* precedent;  // contient l'adresse de l'element precedent
@@ -82,7 +82,7 @@ void affichageJeu(); // affichage du terrain, des pions
 
 
 /* partie calcul */
-void calculsVictoire();  // Ã  chaque tour, pour les deux roi (verifie si l'action est realisable)
+void calculsVictoire();  // a  chaque tour, pour les deux roi (verifie si l'action est realisable)
 void calculMouvement(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 // a  chaque fois que l'on change la disposition des pieces
 Element* calculMouvementPion(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
@@ -104,7 +104,7 @@ void afficheListe(Element* liste);  // pour visualiser les listes (debug)
 
 /* Partie jeu */
 Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);
-// fonction principale lanÃ§ant le jeu pour deux joueurs, et renvoi le joueur gagnant
+// fonction principale lancant le jeu pour deux joueurs, et renvoi le joueur gagnant
 void affichageTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);  // affiche l'etat du terrain.
 void gestionSurbrillance(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Element* liste);
 // on donne en argument la liste des positions voulue. Vide la surbrillance des autres cases
