@@ -60,7 +60,6 @@ Element* eraseListe(Element* liste) {
 }
 
 void afficheListe(Element* liste) {
-	printf("\n");
 	/*on verifie si la liste n'est pas nulle*/
 	if (liste == NULL) {
 		printf("liste vide\n");
@@ -78,4 +77,5 @@ void afficheListe(Element* liste) {
         }
         printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
     }
+	printf("\n");
 }
