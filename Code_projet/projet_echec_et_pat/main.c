@@ -1,4 +1,4 @@
-/* Debut de ce "fantastique" projet pour faire un jeu d'echec
+/* Debut du projet scolaire pour faire un jeu d'echec
 avec affichage sur le terminal*/
 
 
