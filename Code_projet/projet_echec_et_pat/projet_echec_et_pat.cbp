@@ -38,10 +38,16 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="initJeu.h" />
+		<Unit filename="jeu.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mouvement.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

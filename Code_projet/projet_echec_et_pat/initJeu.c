@@ -1,42 +1,37 @@
 /* initJeu.c
-contient les fonctions pour initialyser le terrain, les pieces et les joueurs*/
+contient les fonctions pour initialiser le terrain, les pieces et les joueurs*/
 
 #include "initJeu.h"
 
 void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* blanc, Joueur* noir) {
-    /*Initialisation des tables qui vont nous permettre de naviguer entres les pieces*/
-    Piece* listePieceBlancVivante[NMBPIECEPARJOUEUR];
-    Piece* listePieceNoirVivante[NMBPIECEPARJOUEUR];
-    initListePiece(NMBPIECEPARJOUEUR, listePieceBlancVivante);
-    initListePiece(NMBPIECEPARJOUEUR, listePieceNoirVivante);
-
-    /* Le support ensuite*/
+    /* Initialisation du support */
     initTerrain(terrain);
 
     /*On met chaque piece sur le tableau*/
     char nomPiece[NMBPIECEPARJOUEUR] = {'T','C','F','D','R','F','C','T'};  // disposition des pieces blanches
-    for (int i = 0; i < NMBPIECEPARJOUEUR; ++i) {
-        terrain[i][0].contenu = initPiece(nomPiece[i], i, 0, blanc);
-        addListePiece(NMBPIECEPARJOUEUR, listePieceBlancVivante, terrain[i][0].contenu);
-    }
-
-
-    nomPiece[3] = 'R';  // on modifie pour les pieces noires
-    nomPiece[4] = 'D';  // disposition des pieces noires
-    for (int i = 0; i < NMBPIECEPARJOUEUR; ++i) {
-        terrain[i][7].contenu = initPiece(nomPiece[i], i, 7, noir);
-        addListePiece(NMBPIECEPARJOUEUR, listePieceNoirVivante, terrain[i][7].contenu);
+    for (int i = 0; i < NMBPIECEPARJOUEUR/2; ++i) {  // la moitie des pieces sont definies ici
+        if (i == 0) {  // on fait sortir la tour blanche en 0,0 pour les tests
+            terrain[5][2].contenu = initPiece(nomPiece[i], 5, 2, blanc);
+            addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[5][2].contenu);
+        }
+        else {
+            terrain[i][0].contenu = initPiece(nomPiece[i], i, 0, blanc);
+            addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[i][0].contenu);
+        }
+        terrain[i][TAILLETERRAIN-1].contenu = initPiece(nomPiece[i], i, TAILLETERRAIN-1, noir);
+        addListePiece(NMBPIECEPARJOUEUR, noir->listePiece, terrain[i][TAILLETERRAIN-1].contenu);
     }
 
     /* on place ensuite les pions*/
     for(int x = 0; x<TAILLETERRAIN; x++) {
         terrain[x][1].contenu = initPiece('P', x, 1, blanc);  // on cree les pieces de pions (P)
-        addListePiece(NMBPIECEPARJOUEUR, listePieceBlancVivante, terrain[x][1].contenu);
+        addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[x][1].contenu);
         //on ajoute les pieces dans les listes des joueurs
-        terrain[x][6].contenu = initPiece('P', x, 6, noir);  // on leur attribut des joueurs
-        addListePiece(NMBPIECEPARJOUEUR, listePieceNoirVivante, terrain[x][6].contenu);
+        terrain[x][TAILLETERRAIN-2].contenu = initPiece('P', x, TAILLETERRAIN-2, noir);  // on leur attribut des joueurs
+        addListePiece(NMBPIECEPARJOUEUR, noir->listePiece, terrain[x][TAILLETERRAIN-2].contenu);
     }
 }
+
 
 void initTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]) {  // initialisation du terrain
     /* initialisation des variables*/
@@ -68,6 +63,9 @@ Joueur* initJoueur(char* nom, int couleur) {
     temporaire = (Joueur*)malloc(sizeof(Joueur));  // on lui donne une taille memoire
     temporaire->nom = nom;  // on affecte les valeurs dans temporaire
     temporaire->couleur = couleur;
+
+    /* Initialisation des listes de pieces du joueur*/
+    initListePiece(NMBPIECEPARJOUEUR, temporaire->listePiece);
     return temporaire;
 }
 
@@ -77,7 +75,7 @@ Piece* initPiece(char type, int posX, int posY, Joueur* possesseur){
     temporaire = (Piece*)malloc(sizeof(Piece));  // on lui donne une taille memoire
     temporaire->type = type;  // on affecte les valeurs dans temporaire
     temporaire->posX = posX;
-    temporaire->posY = posX;
+    temporaire->posY = posY;
     temporaire->possesseur = possesseur;
     temporaire->mouvementPossible = NULL;  // on va calculer les mouvements dans la suite
     return temporaire;

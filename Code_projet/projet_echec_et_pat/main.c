@@ -26,17 +26,8 @@ int main() {
     /* test du menu*/
     affichageMenu();
 
-    /* test des pions*/
-    for (int i = 0; i<8; i++) {
-        for (int j = 0; j<8; j++) {
-            if (terrain[j][7-i].contenu == NULL) {
-                printf("   ");
-            }
-            else {
-                printf(" %c ", terrain[j][7-i].contenu->type);
-            }
-        }
-        printf("\n");
-    }
+    /* test affichage des positions posibles */
+    partieDeuxJoueurs(terrain, joueur1, joueur2);
+
     return 0;
 }

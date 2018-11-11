@@ -18,6 +18,14 @@ Element* initElement(int posX, int posY) {
 
 
 Element* addListe(Element* elementListe, Element* elementSupplementaire) {
+	/* on verifie si la liste n'est pas vide*/
+	if (elementListe == NULL) {
+		return elementSupplementaire;  // on renvoie l'element supplementaire qui est le seul a ne pas etre null
+	}
+	/* On verifie si l'element que l'on rajoute n'est pas nul*/
+	if (elementSupplementaire == NULL) {
+        return elementListe;
+	}
 	Element* curseur = elementListe;
 	while(curseur->suivant != NULL) {	//on va se positionner sur le dernier element de la liste
 		curseur = curseur->suivant;
@@ -29,6 +37,11 @@ Element* addListe(Element* elementListe, Element* elementSupplementaire) {
 }
 
 Element* eraseListe(Element* liste) {
+	/*on verifie si la liste n'est pas deja nulle*/
+	if (liste == NULL) {
+		return(liste);  // pas besion de la changer, elle est deja vide
+	}
+
 	/* on se place au debut de la liste avant d'effacer chaque element*/
 	Element* curseur = liste;
 	while(curseur->precedent != NULL) {
@@ -47,16 +60,22 @@ Element* eraseListe(Element* liste) {
 }
 
 void afficheListe(Element* liste) {
-	/* initialisation : retour en debut de liste*/
-	Element* curseur = liste;
-	while(curseur->precedent != NULL) {
-		curseur = curseur->precedent;
+	printf("\n");
+	/*on verifie si la liste n'est pas nulle*/
+	if (liste == NULL) {
+		printf("liste vide\n");
 	}
-
-	/* On parcours tous les elements*/
-	while(curseur->suivant != NULL) {
-		printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
-		curseur = curseur->suivant;
-	}
-	printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
+    else {
+        /* initialisation : retour en debut de liste*/
+        Element* curseur = liste;
+        while(curseur->precedent != NULL) {
+            curseur = curseur->precedent;
+        }
+        /* On parcours tous les elements*/
+        while(curseur->suivant != NULL) {
+            printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
+            curseur = curseur->suivant;
+        }
+        printf("valeurs contenu dans la liste : \nX : %d\nY : %d\n", curseur->posX, curseur->posY);
+    }
 }
