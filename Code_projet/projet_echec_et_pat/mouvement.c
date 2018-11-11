@@ -23,30 +23,30 @@ void calculMouvement(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[T
 			case 'P':
 				/* renvoie les positions possible */
 				pieceActuelle->mouvementPossible = calculMouvementPion(pieceActuelle, terrain);
-				printf("calcul des mouvements du pion\n");
+				//printf("calcul des mouvements du pion\n");
 				break;
 			case 'T':
 				pieceActuelle->mouvementPossible = calculMouvementTour(pieceActuelle, terrain);
-				printf("calcul des mouvements de la tour\n");
+				//printf("calcul des mouvements de la tour\n");
 				break;
 			case 'C':
-				printf("calcul des mouvements du cavalier\n");
+				//printf("calcul des mouvements du cavalier\n");
 				pieceActuelle->mouvementPossible = calculMouvementCavalier(pieceActuelle, terrain);
 				break;
 			case 'F':
 				pieceActuelle->mouvementPossible = calculMouvementFou(pieceActuelle, terrain);
-				printf("calcul des mouvements du fou\n");
+				//printf("calcul des mouvements du fou\n");
 				break;
 			case 'R':
-				printf("calcul des mouvements du roi\n");
+				//printf("calcul des mouvements du roi\n");
 				pieceActuelle->mouvementPossible = calculMouvementRoi(pieceActuelle, terrain);
 				break;
 			case 'D':
 				pieceActuelle->mouvementPossible = calculMouvementDame(pieceActuelle, terrain);
-				printf("calcul des mouvements de la dame\n");
+				//printf("calcul des mouvements de la dame\n");
 				break;
 		}
-        afficheListe(pieceActuelle->mouvementPossible);
+        // afficheListe(pieceActuelle->mouvementPossible);  // affichage pour le control du fonctionnement
 		curseur++;
 	}
 }
@@ -54,8 +54,50 @@ void calculMouvement(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[T
 /* fonctions pour chaque type de pieces*/
 
 Element* calculMouvementPion(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]){
-	// attention, il faut separer les cas en fonction de la couleur de la piece
+	// attention, il faut faire la difference de cas en fonction de la couleur de la piece
+	/* Initialisation */
 	Element* possibilite = NULL;
+	int posX = piece->posX;
+	int posY = piece->posY;
+	int sens;  // si sens=-1, alors les pieces descedent, donc elles sont noires, et inversement avec sens=1
+	int posLigneDepart;
+	if (piece->possesseur->couleur == 1) {
+		sens = 1;  // la piece est blanche
+		posLigneDepart = 1;  // position de la ligne ou sont alignes les pions
+	}
+	else {
+		sens = -1;  // la piece est noire
+		posLigneDepart = TAILLETERRAIN - 2;
+	}
+
+	/* Traitement*/
+	/* deplacement normal */
+	posY += sens;  // la case suivante
+	if (posX >= 0 && posX <= TAILLETERRAIN-1 && posY >= 0 && posY <= TAILLETERRAIN-1) {  // on regarde pour les depassements
+		if (terrain[posX][posY].contenu == NULL) {  // si la case est vide
+			possibilite = addListe(possibilite, initElement(posX, posY));
+
+			/* deplacement de 2 depuis le depart, ne marche que si la case precedente est vide*/
+			posY += sens;  // la case encore après
+			if (posX >= 0 && posX <= TAILLETERRAIN-1 && posY >= 0 && posY <= TAILLETERRAIN-1) {  // attention aux depassements
+				if (terrain[posX][posY].contenu == NULL && piece->posY == posLigneDepart) {  // si la case est vide et la position bonne
+					possibilite = addListe(possibilite, initElement(posX, posY));
+				}
+			}
+		}
+	}
+	/* prise de pieces en diago */
+	posY = piece->posY +1;  // on remet la position en X au bon niveau
+	for (int valeur = -1; valeur <= 1; valeur += 2) {  // petite boucle pour economiser un copier-coller
+		posX = piece->posX + valeur;  // on regarde les cases a cote
+		if (posX >= 0 && posX <= TAILLETERRAIN-1 && posY >= 0 && posY <= TAILLETERRAIN-1) {  // on regarde pour les depassements
+			if (terrain[posX][posY].contenu != NULL
+			&& terrain[posX][posY].contenu->possesseur->couleur != piece->possesseur->couleur) {
+			// si la case est occupe par une unite ennemis
+					possibilite = addListe(possibilite, initElement(posX, posY));
+			}
+		}
+	}
 	return possibilite;
 }
 
@@ -77,7 +119,24 @@ Element* calculMouvementTour(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETE
 }
 
 Element* calculMouvementCavalier(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]){
+	/* Initialisation */
 	Element* possibilite = NULL;
+	int posX;
+	int posY;
+	/* Traitement */
+	// pour une meilleure lisibilite, on va mettre les coeficients a appliquer sur la position du cavalier dans un tableau
+	int coef[8][2] = {{-2,1},{-1,2},{1,2},{2,1},{2,-1},{1,-2},{-1,-2},{-2,-1}};  // couple {{x1,y1},{x2,y2}, ... }
+	for (int indice = 0; indice < 8; indice++) {  // on parcours la liste
+		posX = piece->posX + coef[indice][0];
+		posY = piece->posY + coef[indice][1];
+		if (posX >= 0 && posX <= TAILLETERRAIN-1 && posY >= 0 && posY <= TAILLETERRAIN-1) {  // on regarde pour les depassements
+			if (terrain[posX][posY].contenu == NULL
+            || terrain[posX][posY].contenu->possesseur->couleur != piece->possesseur->couleur) {
+            // on regarde s'il y a une piece allie qui gene
+				possibilite = addListe(possibilite, initElement(posX, posY));
+			}
+		}
+	}
 	return possibilite;
 }
 
@@ -110,6 +169,19 @@ Element* calculMouvementDame(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETE
 
 Element* calculMouvementRoi(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]){
 	Element* possibilite = NULL;
+	for (int posX = piece->posX-1; posX <= piece->posX+1; posX++) {  // on va parcourir les environs
+		for (int posY = piece->posY-1; posY <= piece->posY+1; posY++) {  // dans les deux dimensions
+            if (posX >= 0 && posX <= TAILLETERRAIN-1 && posY >= 0 && posY <= TAILLETERRAIN-1) {  // on evite les depassements
+                if (posX != piece->posX || posY != piece->posY) {  // inutile de mettre la case du roi
+                    if (terrain[posX][posY].contenu == NULL
+                    || terrain[posX][posY].contenu->possesseur->couleur != piece->possesseur->couleur) {
+                    // on regarde s'il y a une piece allie qui gene
+                	    possibilite = addListe(possibilite, initElement(posX, posY));
+                	}
+                }
+            }
+        }
+	}
 	return possibilite;
 }
 
