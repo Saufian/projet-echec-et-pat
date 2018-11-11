@@ -75,5 +75,4 @@ void scanDeuxJoueurs(Joueur joueurActuel, int commande[2][2]) {
 	/* Interraction 1 avec le joueur
 	 * Demande de la piece a bouger
 	 */
-
 }

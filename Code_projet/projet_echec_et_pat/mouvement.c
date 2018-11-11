@@ -153,7 +153,6 @@ Element* calculMouvementFou(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETER
 	possibilite = addListe(possibilite, calculMouvementLineaire(piece, terrain, 1, -1));
 	/* On s'occupe ensuite du deplacement vertical vers le bas a gauche du plateau */
 	possibilite = addListe(possibilite, calculMouvementLineaire(piece, terrain, -1, -1));
-
 	return possibilite;
 }
 
