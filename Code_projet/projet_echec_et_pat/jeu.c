@@ -1,4 +1,4 @@
-/* Jeu.compteur
+/* Jeu.c
 contient les fonctions pour animer une partie*/
 
 #include "initJeu.h"
