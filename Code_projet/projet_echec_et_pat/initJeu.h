@@ -136,4 +136,10 @@ void deplacementPiece(Case terrain[TAILLETERRAIN][TAILLETERRAIN], int mouvement[
 Joueur* testVictoire(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);
 // verifie l'etat du roi de chaque coté, et renvoi le gagnant le cas echeant (renvoi NULL sinon).
 
+
+/*Fonction de gestion de sauvegarde*/
+FILE * initSaveGame(Joueur* joueur1, Joueur* joueur2);
+FILE * saveGame(FILE * saveFile, int commande[2][2]);
+void closeSaveGame(FILE * saveFile);
+
 #endif // INITJEU_H_INCLUDED
