@@ -21,6 +21,8 @@ contient les fonctions pour animer une partie*/
 #include "initJeu.h"
 
 Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2) {
+	//Rajouter un test si fichier existe partie charger pour le lancer en mode ajout récupérer les donnée et repositioner le pointeur dans le fichier
+	FILE * saveFile=initSaveGame(joueur1,joueur2);//On initialise le fichier de sauvgarde todo:lui donner un nom different par partie pour stocker différente partie
 	/* fonction principale pour le jeux a 2 joueurs*/
 	Joueur* gagnant = NULL;
 	Joueur* joueurActuel = joueur1;
@@ -31,15 +33,18 @@ Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* jo
 
 	while(gagnant == NULL) {
 		scanDeuxJoueurs(terrain, joueurActuel, mouvement);
+		saveGame(saveFile,mouvement);//je sauvegarde le déplacement OldX OldY NewX NewY
 		printf("%d,%d,  %d,%d", mouvement[0][0], mouvement[1][0], mouvement[0][1], mouvement[1][1]);
-		deplacementPiece(terrain, mouvement);
+		//deplacementPiece(terrain, mouvement);
 		calculMouvement(joueur1->listePiece, terrain);  // on recalcul les mouvements des pieces pour
 		calculMouvement(joueur2->listePiece, terrain);  // que ce soit a jour pour le test de victoire
 		affichageTerrain(terrain);  // on affiche le terrain avec la modification de la position
 		//gagnant = testVictoire(terrain, joueur1, joueur2);
 		if (joueurActuel == joueur1) joueurActuel = joueur2;
 		else joueurActuel = joueur1;
+		closeSaveGame(saveFile); //gagnant ne fonctionnent pas encore je dois fermer le fichier plutôt
 	}
+	//closeSaveGame(saveFile);
 	return gagnant;
 }
 
