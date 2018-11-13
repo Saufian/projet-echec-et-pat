@@ -36,6 +36,7 @@ Element* addListe(Element* elementListe, Element* elementSupplementaire) {
 	return elementListe;
 }
 
+
 Element* eraseListe(Element* liste) {
 	/*on verifie si la liste n'est pas deja nulle*/
 	if (liste == NULL) {
@@ -58,6 +59,22 @@ Element* eraseListe(Element* liste) {
 	free(curseur);
 	return NULL;
 }
+
+
+int trouveElement(Element* liste, int posX, int posY) {
+	if (liste == NULL) {
+		return 0;  // cas de la liste vide
+	}
+	Element* curseur = liste;
+	while(curseur != NULL && (curseur->posX != posX || curseur->posY != posY)) {  // on parcours la liste
+		curseur = curseur->suivant;
+	}
+	if (curseur == NULL) {  // on a atteint la fin de la liste sans avoir la meme valeur
+		return 0;
+	}
+	return 1;  // on renvoi 1 car l'element contient l'information
+}
+
 
 void afficheListe(Element* liste) {
 	/*on verifie si la liste n'est pas nulle*/
