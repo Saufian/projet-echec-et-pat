@@ -35,16 +35,16 @@ Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* jo
 		scanDeuxJoueurs(terrain, joueurActuel, mouvement);
 		saveGame(saveFile,mouvement);//je sauvegarde le déplacement OldX OldY NewX NewY
 		printf("%d,%d,  %d,%d", mouvement[0][0], mouvement[1][0], mouvement[0][1], mouvement[1][1]);
-		//deplacementPiece(terrain, mouvement);
+		deplacementPiece(terrain, mouvement);
 		calculMouvement(joueur1->listePiece, terrain);  // on recalcul les mouvements des pieces pour
 		calculMouvement(joueur2->listePiece, terrain);  // que ce soit a jour pour le test de victoire
 		affichageTerrain(terrain);  // on affiche le terrain avec la modification de la position
 		//gagnant = testVictoire(terrain, joueur1, joueur2);
 		if (joueurActuel == joueur1) joueurActuel = joueur2;
 		else joueurActuel = joueur1;
-		closeSaveGame(saveFile); //gagnant ne fonctionnent pas encore je dois fermer le fichier plutôt
+		closeSaveGame(saveFile); //gagnant ne fonctionnent pas encore je dois fermer le fichier plus tôt
 	}
-	//closeSaveGame(saveFile);
+	//closeSaveGame(saveFile); // sera actif quand il y aura un gagnant
 	return gagnant;
 }
 

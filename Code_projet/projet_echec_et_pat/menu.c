@@ -49,7 +49,7 @@ void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, 
                 printf("Bonne partie\n");
                 Joueur* gagnant;
                 gagnant = partieDeuxJoueurs(terrain, joueur1, joueur2);  // renvoi le gagnant de la partie
-                // affichage victoire
+                printf("Le gagnant est %s", gagnant->nom);  // affichage victoire
                 break;
             case 2:
                 /*Mode 1 joueurs contre l'ordi*/
@@ -61,15 +61,15 @@ void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, 
                 break;
             case 4:
                 /*Ouvre le menu pour revoir une partie*/
-                printf("Work in progress\n");
+                affichageCharger();
                 break;
             case 5:
                 /*Stats*/
-                printf("Work in progress");
+                afficherStats();
                 break;
             case 6:
                 /*Ouvre le menu crédit*/
-                printf("Work in progress");
+                afficherCredits();
                 break;
             case 7:
                 /*Quitte*/
@@ -82,3 +82,89 @@ void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, 
         }
     }
 }
+
+
+void affichageCharger()
+{
+    printf("           *********************\n\
+           * REVOIR UNE PARTIE *\n\
+           *********************\n\n");
+
+    //Ici il y aura le "nom" des parties
+    printf("WORK IN PROGRESS\n\n");
+    printf("0 - Retour au menu");
+    printf("\n\nChoisissez parmi les parties suivantes :");
+    /*int choix = -1;
+    switch (choix)
+    {
+    case 1:
+        //Jouer la partie 1
+        break;
+    case 2:
+        //Jouer la partie 2
+        break;
+    }*/
+}
+
+void afficherStats()
+{
+    printf("           **************\n\
+           * STATISQUES *\n\
+           **************\n\n");
+    printf("WORK IN PROGRESS");
+
+}
+
+void afficherCredits()
+{
+    printf("           ***********\n\
+           * CREDITS *\n\
+           ***********\n\n");
+
+    printf("School project, creation of a chess game in C, and with the content in French, I'm sorry about that.\n\
+ Copyright (C), 2018,  Thomas Bailleux, Vincent Gauweiler, Antoine Ruiz, from EILCO France.\n\
+ This program is free software: you can redistribute it and/or modify\n\
+ it under the terms of the GNU General Public License as published by\n\
+ the Free Software Foundation, either version 3 of the License, or\n\
+ (at your option) any later version.\n\n\
+ This program is distributed in the hope that it will be useful,\n\
+ but WITHOUT ANY WARRANTY; without even the implied warranty of\n\
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\
+ GNU General Public License for more details.\n\n\
+ You should have received a copy of the GNU General Public License\n\
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n");
+    printf("\nTapez 1 pour continuer ");
+    char choix = '0';
+    while (choix != '1')
+    {
+        scanf("%c", &choix);
+    }
+}
+
+void afficherPause()
+{
+    printf("           *********\n\
+           * PAUSE *\n\
+           *********\n\n");
+    printf("           1 - Reprendre la partie\n\n\
+           2 - Revoir les instructions\n\n\
+           3 - Sauvegarder et quitter\n\n\
+           Votre choix : ");
+
+}
+
+void afficherInstructions()
+{
+    printf("           ****************\n\
+           * INSTRUCTIONS *\n\
+           ****************\n\n");
+    printf("WORK IN PROGRESS");
+    printf("Tapez 1 pour continuer");
+    char choix = '0';
+    while (choix != '1')
+    {
+        scanf("%c", &choix);
+    }
+
+}
+
