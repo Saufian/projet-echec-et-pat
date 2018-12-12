@@ -4,12 +4,12 @@
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version. 
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. 
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
@@ -22,11 +22,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 
-/* Mettre tout les #define ici*/
+/* Constantes */
 #define TAILLETERRAIN 8  // un carré de 8 sur 8
 #define NMBPIECEPARJOUEUR 16  // nombre initial de piece pour chaque joueur
+
+
+/* Macro */
 
 
 /* Mettre les variables globales ici
@@ -95,26 +99,38 @@ void eraseListePiece(int taille, Piece* liste[taille], Piece* cible);  // suppre
 
 /* partie affichage */
 void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);  // affichage du menu de départ
+void affichageCharger();
+void afficherStats();
+void afficherCredits();
+void afficherPause();
+void afficherInstructions();
+void afficherRegles();
+void Color(int couleurDuTexte,int couleurDeFond);  // 0-noir; 2-vert; 4-marron; 8-gris; 12-rouge; 15-blanc
+void afficherLigne();
 
 
 /* partie calcul */
 void calculsVictoire();  // à chaque tour, pour les deux roi (verifie si l'action est réalisable)
-void calculMouvement(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
-// à chaque fois que l'on change la disposition des pieces
+void calculMouvement(Joueur* principal, Joueur* adversaire, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
+Piece* switchMouvement(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
+//Parcours la liste des pieces d'un joueur (renvoi le roi sans calculer ses mouvements)
+// à faire chaque fois que l'on change la disposition des pieces
 Element* calculMouvementPion(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementTour(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementCavalier(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementFou(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementDame(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
-Element* calculMouvementRoi(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
+Element* calculMouvementRoi(Piece * piece, Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementLineaire(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN], int sensX, int sensY);
 // fonction pour calculer specifiquement les mouvement lineaire qui ne sont arrete que par la fin du plateau et les autre pieces
+Piece* captureCase(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], int x, int y);
 
 
 /* partie gestion de liste */
 Element* initElement(int posX, int posY);  // Initialisation des elements
 Element* addListe(Element* elementListe, Element* elementSupplementaire);  // ajoute un ou plusieurs element a une liste
 Element* eraseListe(Element* liste);  // supprimer une liste, et liberer l'espace memoire alloué
+Element* securiseListe(Element* liste);  // met les bornes de la liste a NULL
 int trouveElement(Element* liste, int posX, int posY);  // renvoi 1 si les pos peuvent etre trouve dans la liste d'element, renvoi 0 sinon
 void afficheListe(Element* liste);  // pour visualiser les listes (debug)
 
@@ -125,21 +141,26 @@ Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* jo
 void affichageTerrain(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);  // affiche l'etat du terrain.
 void gestionSurbrillance(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Element* liste);
 // on donne en argument la liste des positions voulue. Vide la surbrillance des autres cases
-void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurActuel, int commande[2][2]);
+void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurActuel, Joueur* joueurAdverse, int commande[2][2]);
 /* scan les entrees des participants, et modifie un tableau[2][2] contenant la position de la piece a bouger,
  * et la position a laquelle le joueur veut la mettre. La fonction verifie si le mouvement est possible
  * (en regardant les positions possibles de la piece choisi, affiche en surbrillance les choix possible (qui correspondent
  * aux positions possibles de la piece selectionné, puis renvoi les informations rentrees par l'utilisateur dans commande si le mouvement
- * est possible)). */
+ * est possible)). 
+ * Affiche egalement le terrain a la place de toutes autres fonctions
+ */
 void deplacementPiece(Case terrain[TAILLETERRAIN][TAILLETERRAIN], int mouvement[2][2]);
 // change de position la piece marque par mouvement, et gere le cas de la prise d'une piece ennemis
 Joueur* testVictoire(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);
-// verifie l'etat du roi de chaque coté, et renvoi le gagnant le cas echeant (renvoi NULL sinon).
+// verifit l'etat du roi de chaque coté, et renvoi le gagnant le cas echeant (renvoi NULL sinon).
 
 
 /*Fonction de gestion de sauvegarde*/
-FILE * initSaveGame(Joueur* joueur1, Joueur* joueur2);
-FILE * saveGame(FILE * saveFile, int commande[2][2]);
-void closeSaveGame(FILE * saveFile);
+void initSaveGame(Joueur* joueur1, Joueur* joueur2);
+void saveGame(int commande[2][2]);
+void closeSaveGame();
+void loadSaveGame(Joueur* joueur1, Joueur* joueur2);
+int readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
+int readPastMove(int * mouvement[2][2]);
 
 #endif // INITJEU_H_INCLUDED

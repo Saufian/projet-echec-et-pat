@@ -4,12 +4,12 @@
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version. 
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. 
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
@@ -27,14 +27,9 @@ void initJeu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* blanc, Joueur* 
     /*On met chaque piece sur le tableau*/
     char nomPiece[NMBPIECEPARJOUEUR] = {'T','C','F','D','R','F','C','T'};  // disposition des pieces blanches
     for (int i = 0; i < NMBPIECEPARJOUEUR/2; ++i) {  // la moitie des pieces sont definies ici
-        if (i == 4) {  // on fait sortir roi blanc en 5,2 pour les tests
-            terrain[5][2].contenu = initPiece(nomPiece[i], 5, 2, blanc);  // TODO enlever cela si les tests
-            addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[5][2].contenu);  // sont finis
-        }
-        else {
-            terrain[i][0].contenu = initPiece(nomPiece[i], i, 0, blanc);
-            addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[i][0].contenu);
-        }
+        terrain[i][0].contenu = initPiece(nomPiece[i], i, 0, blanc);
+        addListePiece(NMBPIECEPARJOUEUR, blanc->listePiece, terrain[i][0].contenu);
+
         terrain[i][TAILLETERRAIN-1].contenu = initPiece(nomPiece[i], i, TAILLETERRAIN-1, noir);
         addListePiece(NMBPIECEPARJOUEUR, noir->listePiece, terrain[i][TAILLETERRAIN-1].contenu);
     }
