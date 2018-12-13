@@ -132,14 +132,14 @@ void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurA
 			do {  // on boucle tant que l'entree ne correspond pas a une piece, ou depasse du terrain
                 printf("Au tour de %s\n", joueurActuel->nom);  // petit affichage du tour du joueur
 				printf("Quelle piece voulez vous bouger ?\n");
-				printf("Valeur X de la piece : ");
+				printf("Position de la piece : ");
 				scanf("%c%*1[\n]", &temp);
 				posX=temp-'a';//TODO rajouter majuscule
 				/*if (posX == 0)
                     afficherPause();*/
-				printf("Valeur Y de la piece : ");
-				scanf("%d%*1[\n]", &posY);
-				posY=posY-1;
+				scanf("%c%*1[\n]", &temp);
+				posY=temp-'1';
+				printf("valeur dans posY : %d", temp-'1');
 				if ((posX < 0 || posX > TAILLETERRAIN || posY < 0 || posY > TAILLETERRAIN || terrain[posX][posY].contenu == NULL)) {
 					printf("Aucune piece ici, recommencez.\n\n");  // test pour l'affichage d'un message d'erreur
 				}
@@ -168,12 +168,11 @@ void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurA
 		do {  // tant que le mouvement de la piece n'est pas realisable, ou que l'entree depasse le terrain
 			printf("\nOu voulez vous bouger cette piece ( %c )?  (ou %d,%d pour revenir a la selection de piece)\n",
 			 selection->type, TAILLETERRAIN, TAILLETERRAIN);  // TODO: remplacer par la valeur correspondant au retour (surement 0,0)
-			printf("Nouvelle valeur en X : ");
+			printf("Nouvelle position de la piece : ");
 			scanf("%c%*1[\n]", &temp);  //TODO: securiser ces entrees
 			posX=temp-'a';//TODO rajouter majuscule
-			printf("Nouvelle valeur en Y : ");
-			scanf("%d%*1[\n]", &posY);
-			posY=posY-1;//remetre au valeur afficher
+			scanf("%c%*1[\n]", &temp);
+			posY=temp-'1';//remetre au valeur afficher
 			if (trouveElement(selection->mouvementPossible, posX, posY) == 0 && (posX != TAILLETERRAIN && posY != TAILLETERRAIN)) {
 			// situation ou l'on va boucler car l'on depasse le terrain
 				printf("Mouvement impossible, veuillez reessayer.\n\n");
