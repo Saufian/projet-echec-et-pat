@@ -24,11 +24,9 @@
 #include <string.h>
 #include <windows.h>
 
-
 /* Constantes */
-#define TAILLETERRAIN 8  // un carré de 8 sur 8
+#define TAILLETERRAIN 8  // un carre de 8 sur 8
 #define NMBPIECEPARJOUEUR 16  // nombre initial de piece pour chaque joueur
-
 
 /* Macro */
 
@@ -98,23 +96,27 @@ void eraseListePiece(int taille, Piece* liste[taille], Piece* cible);  // suppre
 
 
 /* partie affichage */
-void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);  // affichage du menu de départ
+
+void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);  // affichage du menu de depart
+
 void affichageCharger();
 void afficherStats();
 void afficherCredits();
 void afficherPause();
 void afficherInstructions();
+
 void afficherRegles();
 void Color(int couleurDuTexte,int couleurDeFond);  // 0-noir; 2-vert; 4-marron; 8-gris; 12-rouge; 15-blanc
 void afficherLigne();
 
 
 /* partie calcul */
-void calculsVictoire();  // à chaque tour, pour les deux roi (verifie si l'action est réalisable)
+void calculsVictoire();  // Ã  chaque tour, pour les deux roi (verifie si l'action est rÃ©alisable)
 void calculMouvement(Joueur* principal, Joueur* adversaire, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Piece* switchMouvement(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 //Parcours la liste des pieces d'un joueur (renvoi le roi sans calculer ses mouvements)
-// à faire chaque fois que l'on change la disposition des pieces
+// Ã  faire chaque fois que l'on change la disposition des pieces
+
 Element* calculMouvementPion(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementTour(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
 Element* calculMouvementCavalier(Piece * piece, Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
@@ -129,8 +131,10 @@ Piece* captureCase(Piece * listePieceJoueur[NMBPIECEPARJOUEUR], int x, int y);
 /* partie gestion de liste */
 Element* initElement(int posX, int posY);  // Initialisation des elements
 Element* addListe(Element* elementListe, Element* elementSupplementaire);  // ajoute un ou plusieurs element a une liste
-Element* eraseListe(Element* liste);  // supprimer une liste, et liberer l'espace memoire alloué
+
+Element* eraseListe(Element* liste);  // supprimer une liste, et liberer l'espace memoire allouÃ©
 Element* securiseListe(Element* liste);  // met les bornes de la liste a NULL
+
 int trouveElement(Element* liste, int posX, int posY);  // renvoi 1 si les pos peuvent etre trouve dans la liste d'element, renvoi 0 sinon
 void afficheListe(Element* liste);  // pour visualiser les listes (debug)
 
@@ -145,14 +149,16 @@ void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurA
 /* scan les entrees des participants, et modifie un tableau[2][2] contenant la position de la piece a bouger,
  * et la position a laquelle le joueur veut la mettre. La fonction verifie si le mouvement est possible
  * (en regardant les positions possibles de la piece choisi, affiche en surbrillance les choix possible (qui correspondent
- * aux positions possibles de la piece selectionné, puis renvoi les informations rentrees par l'utilisateur dans commande si le mouvement
+
+ * aux positions possibles de la piece selectionnÃ©, puis renvoi les informations rentrees par l'utilisateur dans commande si le mouvement
  * est possible)).
  * Affiche egalement le terrain a la place de toutes autres fonctions
  */
 void deplacementPiece(Case terrain[TAILLETERRAIN][TAILLETERRAIN], int mouvement[2][2]);
 // change de position la piece marque par mouvement, et gere le cas de la prise d'une piece ennemis
 Joueur* testVictoire(Joueur* joueur1, Joueur* joueur2);
-// verifit l'etat du roi de chaque coté, et renvoi le gagnant le cas echeant (renvoi NULL sinon).
+// verifit l'etat du roi de chaque cotÃ©, et renvoi le gagnant le cas echeant (renvoi NULL sinon).
+
 
 
 /*Fonction de gestion de sauvegarde*/

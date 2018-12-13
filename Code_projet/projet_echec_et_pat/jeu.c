@@ -28,6 +28,7 @@ Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* jo
 	Joueur* joueurAdverse = joueur2;
 	int mouvement[2][2];
 	/* calcul des positions pour le joueur 1*/
+
 	calculMouvement(joueur1, joueur2, terrain);  // premier calcul des mouvements des pieces
 
 	while (gagnant == NULL) {

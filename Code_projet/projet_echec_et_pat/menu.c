@@ -77,10 +77,12 @@ void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, 
             case '4':
                 /*Ouvre le menu pour revoir une partie*/
                 affichageCharger();
+
                 break;
             case '5':
                 //Affiche les regles
                 afficherRegles();
+
                 break;
             case '6':
                 /*Stats*/
@@ -106,7 +108,9 @@ void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, 
 
 void affichageCharger()
 {
+
     system("cls");
+
     printf("           *********************\n\
            * REVOIR UNE PARTIE *\n\
            *********************\n\n");
@@ -115,8 +119,10 @@ void affichageCharger()
     printf("WORK IN PROGRESS\n\n");
     printf("0 - Retour au menu");
     printf("\n\nChoisissez parmi les parties suivantes :");
+
     char choix = '$';
     /*switch (choix)
+
     {
     case 1:
         //Jouer la partie 1
@@ -125,20 +131,25 @@ void affichageCharger()
         //Jouer la partie 2
         break;
     }*/
+
     while (choix != '0')
     {
         scanf("%c%*1[\n]", &choix);
     }
     system("cls");
+
 }
 
 void afficherStats()
 {
+
     system("cls");
+
     printf("           **************\n\
            * STATISQUES *\n\
            **************\n\n");
     printf("WORK IN PROGRESS");
+
     printf("\n\nTapez 1 pour sortir");
     char choix = '0';
     while (choix != '1')
@@ -146,11 +157,14 @@ void afficherStats()
         scanf("%c%*1[\n]", &choix);
     }
     system("cls");
+
 }
 
 void afficherCredits()
 {
+
     system("cls");
+
     printf("           ***********\n\
            * CREDITS *\n\
            ***********\n\n");
@@ -171,14 +185,18 @@ void afficherCredits()
     char choix = '0';
     while (choix != '1')
     {
+
         scanf("%c%*1[\n]", &choix);
     }
     system("cls");
+
 }
 
 void afficherPause()
 {
+
     system("cls");
+
     printf("           *********\n\
            * PAUSE *\n\
            *********\n\n");
@@ -200,15 +218,19 @@ void afficherPause()
       }
     }
     system("cls");
+
 }
 
 void afficherInstructions()
 {
+
     system("cls");
+
     printf("           ****************\n\
            * INSTRUCTIONS *\n\
            ****************\n\n");
     printf("WORK IN PROGRESS");
+
     printf("\n\nTapez 1 pour continuer");
     char choix = '0';
     while (choix != '1')
