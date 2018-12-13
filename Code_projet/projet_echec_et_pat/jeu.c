@@ -47,7 +47,7 @@ Joueur* partieDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* jo
 			joueurAdverse = joueur2;
 		}
 		calculMouvement(joueurActuel, joueurAdverse, terrain);  // on recalcul les mouvements des pieces
-		gagnant = testVictoire(terrain, joueurActuel, joueurAdverse);
+		gagnant = testVictoire(joueurActuel, joueurAdverse);
 		//closeSaveGame(saveFile); //gagnant ne fonctionnent pas encore je dois fermer le fichier plus tôt
 	}
 	//closeSaveGame(saveFile); // sera actif quand il y aura un gagnant
@@ -139,7 +139,7 @@ void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurA
 				printf("Valeur Y de la piece : ");
 				scanf("%d%*1[\n]", &posY);
 				posY=posY-1;
-				if ((posX < 0 || posX >= TAILLETERRAIN || posY < 0 || posY >= TAILLETERRAIN || terrain[posX][posY].contenu == NULL)) {
+				if ((posX < 0 || posX > TAILLETERRAIN || posY < 0 || posY > TAILLETERRAIN || terrain[posX][posY].contenu == NULL)) {
 					printf("Aucune piece ici, recommencez.\n\n");  // test pour l'affichage d'un message d'erreur
 				}
 				else {
@@ -148,7 +148,7 @@ void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurA
 					}
 				}
 
-			} while (posX < 0 || posX >= TAILLETERRAIN || posY < 0 || posY >= TAILLETERRAIN || terrain[posX][posY].contenu == NULL);
+			} while (posX < 0 || posX > TAILLETERRAIN || posY < 0 || posY > TAILLETERRAIN || terrain[posX][posY].contenu == NULL);
 		} while (terrain[posX][posY].contenu->possesseur->couleur != joueurActuel->couleur);
 		/* On va stocker dans une variable la piece que le joueur a selectionne,
 		 * Et afficher les deplacement realisable par la piece
@@ -229,7 +229,7 @@ void deplacementPiece(Case terrain[TAILLETERRAIN][TAILLETERRAIN], int mouvement[
  * @param  joueurAdverse  Le joueur adverse et toutes ses pieces
  * @return  Le joueur qui gagne, ou NULL si personne ne gagne (donc la partie doit continuer)
  */
-Joueur* testVictoire(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurActuel, Joueur* joueurAdverse) {
+Joueur* testVictoire( Joueur* joueurActuel, Joueur* joueurAdverse) {
 	/* Initialisation */
 	Joueur* gagnant = NULL;
 	Piece* roiActuel;

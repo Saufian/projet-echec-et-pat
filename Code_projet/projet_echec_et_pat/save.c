@@ -67,7 +67,7 @@ void loadSaveGame(Joueur* joueur1, Joueur* joueur2)
 {
 	FILE* saveFile;
     saveFile=fopen("savefile.save","a+");
-    
+
     char *temp1=malloc(sizeof(25));
     char *temp2=malloc(sizeof(25));
 
@@ -80,10 +80,10 @@ void loadSaveGame(Joueur* joueur1, Joueur* joueur2)
     fclose(saveFile);
 }
 
-int readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN])
+void readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN])
 {
     FILE* saveFile;
-    int * mouvement[2][2];
+    int mouvement[2][2];
     saveFile=fopen("savefile.save","a+");
     char temp;
     int compteur=0;
@@ -107,7 +107,7 @@ int readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN])
             mouvement[1][0]=fgetc(saveFile)-'0';//oldY
             mouvement[0][1]=fgetc(saveFile)-'0';//NewX
             mouvement[1][1]=fgetc(saveFile)-'0';//NewY
-            printf("%d,%d,  %d,%d\n", mouvement[0][0], mouvement[1][0], mouvement[0][1], mouvement[1][1]);
+            printf("%d,%d,  %d,%d\n", (int)mouvement[0][0], (int)mouvement[1][0], (int)mouvement[0][1], (int)mouvement[1][1]);
             deplacementPiece(terrain, mouvement);
             affichageTerrain(terrain);//afficher coup par coup
             c=fgetc(saveFile);
@@ -120,7 +120,7 @@ int readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN])
     fclose(saveFile);
 }
 
-int readPastMove(int * mouvement[2][2])
+void readPastMove(int * mouvement[2][2])
 {
     FILE* saveFile;
     saveFile=fopen("savefile.save","a+");
@@ -140,12 +140,12 @@ int readPastMove(int * mouvement[2][2])
         }
     }
     fseek(saveFile,-4,SEEK_CUR);//on recule de 4
-    int c;//on inverse les mouvements dans le tableau pour pouvoir facilement l'utiliser pour annuler sont mouvement
-    mouvement[0][0]=fgetc(saveFile)-'0';//oldX
-    mouvement[1][0]=fgetc(saveFile)-'0';//oldY
-    mouvement[0][1]=fgetc(saveFile)-'0';//NewX
-    mouvement[1][1]=fgetc(saveFile)-'0';//NewY
-    printf("%d,%d,  %d,%d\n", mouvement[0][0], mouvement[1][0], mouvement[0][1], mouvement[1][1]);
+    //int c;//on inverse les mouvements dans le tableau pour pouvoir facilement l'utiliser pour annuler sont mouvement
+    mouvement[0][0]=(int *)fgetc(saveFile)-'0';//oldX
+    mouvement[1][0]=(int *)fgetc(saveFile)-'0';//oldY
+    mouvement[0][1]=(int *)fgetc(saveFile)-'0';//NewX
+    mouvement[1][1]=(int *)fgetc(saveFile)-'0';//NewY
+    printf("%d,%d,  %d,%d\n", (int)mouvement[0][0], (int)mouvement[1][0], (int)mouvement[0][1], (int)mouvement[1][1]);
     fseek(saveFile,-4,SEEK_CUR);//on recule de 4 pour ecrire par dessus
     fclose(saveFile);
 }

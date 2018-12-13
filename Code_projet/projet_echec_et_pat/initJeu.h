@@ -146,12 +146,12 @@ void scanDeuxJoueurs(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueurA
  * et la position a laquelle le joueur veut la mettre. La fonction verifie si le mouvement est possible
  * (en regardant les positions possibles de la piece choisi, affiche en surbrillance les choix possible (qui correspondent
  * aux positions possibles de la piece selectionné, puis renvoi les informations rentrees par l'utilisateur dans commande si le mouvement
- * est possible)). 
+ * est possible)).
  * Affiche egalement le terrain a la place de toutes autres fonctions
  */
 void deplacementPiece(Case terrain[TAILLETERRAIN][TAILLETERRAIN], int mouvement[2][2]);
 // change de position la piece marque par mouvement, et gere le cas de la prise d'une piece ennemis
-Joueur* testVictoire(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, Joueur* joueur2);
+Joueur* testVictoire(Joueur* joueur1, Joueur* joueur2);
 // verifit l'etat du roi de chaque coté, et renvoi le gagnant le cas echeant (renvoi NULL sinon).
 
 
@@ -160,7 +160,7 @@ void initSaveGame(Joueur* joueur1, Joueur* joueur2);
 void saveGame(int commande[2][2]);
 void closeSaveGame();
 void loadSaveGame(Joueur* joueur1, Joueur* joueur2);
-int readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
-int readPastMove(int * mouvement[2][2]);
+void readMove(Case terrain[TAILLETERRAIN][TAILLETERRAIN]);
+void readPastMove(int * mouvement[2][2]);
 
 #endif // INITJEU_H_INCLUDED

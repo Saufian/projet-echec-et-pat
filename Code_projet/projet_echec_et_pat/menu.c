@@ -69,7 +69,9 @@ void affichageMenu(Case terrain[TAILLETERRAIN][TAILLETERRAIN], Joueur* joueur1, 
                 printf("Work in progress\n");
                 printf("on charge la partie\n");
                 loadSaveGame(joueur1, joueur2);
+                printf("La partie %s vs %s va reprendre\n", joueur1->nom,joueur2->nom );
                 readMove(terrain);//on charge le terrain actuelle
+                printf("The Game is on !\n");
                 gagnant = partieDeuxJoueurs(terrain, joueur1, joueur2);
                 break;
             case '4':
